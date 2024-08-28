@@ -6,7 +6,7 @@
             "link": "https://yabesrblxyt.github.io/videoplayer/player.html",
             "videos": [
                 {"name": "Video 1", "hash": "#vid1", "src": "a/Kucing Dengan Sinyal -999.mp4"},
-                {"name": "Video 2", "hash": "#vid2", "src": "Aku wibu.mp4"},
+                {"name": "Video 2", "hash": "#vid2", "src": "a/Aku wibu.mp4"},
                 {"name": "Video 3", "hash": "#vid3", "src": "video3.mp4"}
             ]
         },
