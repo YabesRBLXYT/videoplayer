@@ -54,6 +54,9 @@
                     listItem.appendChild(link);
                     pageList.appendChild(listItem);
                 });
+            })
+            .catch(error => {
+                console.error('Error loading videoData.json:', error);
             });
     </script>
 </body>
