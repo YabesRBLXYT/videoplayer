@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
+    <title>MP4 Player with Save Progress</title>
     <style>
         body {
             margin: 0;
@@ -11,9 +11,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             overflow: hidden;
             position: relative;
+            font-family: Arial, sans-serif;
         }
         video {
             width: 90%;
@@ -44,16 +46,19 @@
     </style>
 </head>
 <body>
+    <h1>MP4 Player</h1>
     <div class="overlay" id="fileList">
         <!-- Daftar file akan dimuat di sini -->
     </div>
-    <video controls id="videoPlayer">
+    <video id="videoPlayer" controls>
         Your browser does not support the video tag.
     </video>
 
     <script>
         let videoData;
         const pageId = window.location.pathname.split('/').pop().split('.')[0]; // Ambil ID dari URL
+        const video = document.getElementById('videoPlayer');
+        const videoKeyPrefix = 'videoProgress_';
 
         // Fungsi untuk memuat daftar file ke dalam overlay
         function loadFileList(page) {
@@ -69,13 +74,18 @@
         // Fungsi untuk memuat video berdasarkan hash
         function loadVideoByHash() {
             const hash = window.location.hash;
-            const videoPlayer = document.getElementById('videoPlayer');
-            const video = videoData.pages.find(p => p.id === pageId).videos.find(v => v.hash === hash);
-            if (video) {
-                videoPlayer.src = video.src;
-                videoPlayer.play();
+            const videoInfo = videoData.pages.find(p => p.id === pageId).videos.find(v => v.hash === hash);
+            if (videoInfo) {
+                video.src = videoInfo.src;
+
+                // Load saved video progress
+                const savedTime = localStorage.getItem(videoKeyPrefix + videoInfo.hash);
+                if (savedTime) {
+                    video.currentTime = savedTime;
+                }
+                video.play();
             } else {
-                videoPlayer.src = '';
+                video.src = '';
             }
         }
 
@@ -86,9 +96,28 @@
                 videoData = data;
                 loadFileList(pageId);
                 loadVideoByHash();
+            })
+            .catch(error => {
+                console.error('Error loading videoData.json:', error);
             });
 
-        // Muat video saat hash berubah
+        // Save video progress every 5 seconds
+        video.addEventListener('timeupdate', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                localStorage.setItem(videoKeyPrefix + hash, video.currentTime);
+            }
+        });
+
+        // Optionally, clear the saved position when the video ends
+        video.addEventListener('ended', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                localStorage.removeItem(videoKeyPrefix + hash);
+            }
+        });
+
+        // Load video when hash changes
         window.addEventListener('hashchange', () => {
             loadVideoByHash();
         });
