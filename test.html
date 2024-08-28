@@ -33,14 +33,12 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 10px;
-            box-sizing: border-box;
-            text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             z-index: 1000;
+            display: none; /* Hide by default */
         }
         .overlay button {
             margin: 10px;
@@ -58,12 +56,6 @@
             background-color: #dc3545;
             color: white;
         }
-        .overlay a {
-            color: white;
-            text-decoration: none;
-            margin: 5px;
-            font-weight: bold;
-        }
         #fileList {
             position: fixed;
             top: 0;
@@ -75,6 +67,7 @@
             text-align: center;
             display: flex;
             overflow-x: auto;
+            white-space: nowrap; /* Prevent line breaks */
             z-index: 1000;
         }
         #fileList a {
@@ -82,12 +75,13 @@
             text-decoration: none;
             margin: 0 10px;
             font-weight: bold;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
     <h1>MP4 Player</h1>
-    <div class="overlay" id="fileList">
+    <div id="fileList">
         <!-- Daftar file akan dimuat di sini -->
     </div>
     <video id="videoPlayer" controls>
@@ -115,7 +109,7 @@
             fileList.innerHTML = ''; // Clear existing list
             videoData.pages.find(p => p.id === page).videos.forEach(video => {
                 const link = document.createElement('a');
-                link.href = video.hash;
+                link.href = `#${video.hash}`;
                 link.innerText = video.name;
                 fileList.appendChild(link);
             });
@@ -124,7 +118,7 @@
         // Fungsi untuk memuat video berdasarkan hash
         function loadVideoByHash() {
             const hash = window.location.hash;
-            const videoInfo = videoData.pages.find(p => p.id === pageId).videos.find(v => v.hash === hash);
+            const videoInfo = videoData.pages.find(p => p.id === pageId).videos.find(v => `#${v.hash}` === hash);
             if (videoInfo) {
                 currentVideoHash = videoInfo.hash;
                 video.src = videoInfo.src;
