@@ -1,0 +1,7 @@
+{
+    "videos": [
+        {"name": "Video 1", "hash": "#vid1", "src": "video1.mp4"},
+        {"name": "Video 2", "hash": "#vid2", "src": "video2.mp4"},
+        {"name": "Video 3", "hash": "#vid3", "src": "video3.mp4"}
+    ]
+}
