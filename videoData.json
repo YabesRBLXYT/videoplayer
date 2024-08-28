@@ -15,7 +15,7 @@
             "name": "Test Page",
             "link": "https://yabesrblxyt.github.io/videoplayer/test.html",
             "videos": [
-                {"name": "Test Video 1", "hash": "#test1", "src": "test_video1.mp4"},
+                {"name": "Test Video 1", "hash": "#test1", "src": "a/Aku wibu.mp4"},
                 {"name": "Test Video 2", "hash": "#test2", "src": "test_video2.mp4"},
                 {"name": "Test Video 3", "hash": "#test3", "src": "test_video3.mp4"}
             ]
