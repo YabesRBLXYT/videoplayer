@@ -10,8 +10,8 @@
         {"name": "Test Video 3", "hash": "#test3", "src": "test_video3.mp4"}
     ],
     "gk.html": [
-        {"name": "Ceo 1", "hash": "#vid1", "src": "video1h.mp4"},
-        {"name": "Video 2", "hash": "#vid2", "src": "videog2.mp4"},
-        {"name": "Video 3", "hash": "#vid3", "src": "videog3.mp4"}
+        {"name": "Ceo 1", "hash": "#vidh", "src": "video1h.mp4"},
+        {"name": "Ceo 2", "hash": "#vvid2", "src": "videog2.mp4"},
+        {"name": "Video 3", "hash": "#vid", "src": "videog3.mp4"}
     ]
 }
