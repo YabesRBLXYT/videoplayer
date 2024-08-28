@@ -32,6 +32,8 @@
             padding: 10px;
             box-sizing: border-box;
             text-align: center;
+            display: flex;
+            overflow-x: auto;
         }
         .overlay a {
             color: white;
@@ -51,11 +53,12 @@
 
     <script>
         let videoData;
+        const pageId = window.location.pathname.split('/').pop().split('.')[0]; // Ambil ID dari URL
 
         // Fungsi untuk memuat daftar file ke dalam overlay
         function loadFileList(page) {
             const fileList = document.getElementById('fileList');
-            videoData.pages.find(p => p.link === page).videos.forEach(video => {
+            videoData.pages.find(p => p.id === page).videos.forEach(video => {
                 const link = document.createElement('a');
                 link.href = video.hash;
                 link.innerText = video.name;
@@ -64,10 +67,10 @@
         }
 
         // Fungsi untuk memuat video berdasarkan hash
-        function loadVideoByHash(page) {
+        function loadVideoByHash() {
             const hash = window.location.hash;
             const videoPlayer = document.getElementById('videoPlayer');
-            const video = videoData.pages.find(p => p.link === page).videos.find(v => v.hash === hash);
+            const video = videoData.pages.find(p => p.id === pageId).videos.find(v => v.hash === hash);
             if (video) {
                 videoPlayer.src = video.src;
                 videoPlayer.play();
@@ -81,15 +84,13 @@
             .then(response => response.json())
             .then(data => {
                 videoData = data;
-                const currentPage = window.location.href;
-                loadFileList(currentPage);
-                loadVideoByHash(currentPage);
+                loadFileList(pageId);
+                loadVideoByHash();
             });
 
         // Muat video saat hash berubah
         window.addEventListener('hashchange', () => {
-            const currentPage = window.location.href;
-            loadVideoByHash(currentPage);
+            loadVideoByHash();
         });
     </script>
 </body>
