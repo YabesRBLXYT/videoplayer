@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Page</title>
+    <title>Video Player</title>
     <style>
         body {
             margin: 0;
@@ -13,6 +13,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
         video {
             width: 90%;
@@ -21,7 +22,6 @@
             border: 2px solid #333;
             border-radius: 10px;
             background-color: #000;
-            z-index: 1;
         }
         .overlay {
             position: absolute;
@@ -32,7 +32,6 @@
             padding: 10px;
             box-sizing: border-box;
             text-align: center;
-            z-index: 2;
         }
         .overlay a {
             color: white;
@@ -56,7 +55,7 @@
         // Fungsi untuk memuat daftar file ke dalam overlay
         function loadFileList(page) {
             const fileList = document.getElementById('fileList');
-            videoData[page].forEach(video => {
+            videoData.pages.find(p => p.link === page).videos.forEach(video => {
                 const link = document.createElement('a');
                 link.href = video.hash;
                 link.innerText = video.name;
@@ -68,7 +67,7 @@
         function loadVideoByHash(page) {
             const hash = window.location.hash;
             const videoPlayer = document.getElementById('videoPlayer');
-            const video = videoData[page].find(v => v.hash === hash);
+            const video = videoData.pages.find(p => p.link === page).videos.find(v => v.hash === hash);
             if (video) {
                 videoPlayer.src = video.src;
                 videoPlayer.play();
@@ -82,17 +81,16 @@
             .then(response => response.json())
             .then(data => {
                 videoData = data;
-                const currentPage = window.location.pathname.split('/').pop();
+                const currentPage = window.location.href;
                 loadFileList(currentPage);
                 loadVideoByHash(currentPage);
             });
 
         // Muat video saat hash berubah
         window.addEventListener('hashchange', () => {
-            const currentPage = window.location.pathname.split('/').pop();
+            const currentPage = window.location.href;
             loadVideoByHash(currentPage);
         });
     </script>
 </body>
-      </html>
-  
+</html>
