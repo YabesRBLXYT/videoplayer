@@ -2,7 +2,7 @@
     "pages": [
         {
             "name": "Player Page",
-            "link": "player.html",
+            "link": "https://yabesrblxyt.github.io/player.html",
             "videos": [
                 {"name": "Video 1", "hash": "#vid1", "src": "video1.mp4"},
                 {"name": "Video 2", "hash": "#vid2", "src": "video2.mp4"},
@@ -11,7 +11,7 @@
         },
         {
             "name": "Test Page",
-            "link": "test.html",
+            "link": "https://yabesrblxyt.github.io/test.html",
             "videos": [
                 {"name": "Test Video 1", "hash": "#test1", "src": "test_video1.mp4"},
                 {"name": "Test Video 2", "hash": "#test2", "src": "test_video2.mp4"},
