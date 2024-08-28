@@ -35,10 +35,26 @@
 <body>
     <div class="container">
         <h1>Video Pages</h1>
-        <ul class="link-list">
-            <li><a href="player.html">Player Page</a></li>
-            <li><a href="test.html">Test Page</a></li>
+        <ul class="link-list" id="pageList">
+            <!-- Daftar link akan dimuat di sini -->
         </ul>
     </div>
+
+    <script>
+        // Fungsi untuk memuat daftar halaman dari videoData.json
+        fetch('videoData.json')
+            .then(response => response.json())
+            .then(data => {
+                const pageList = document.getElementById('pageList');
+                data.pages.forEach(page => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = page.link;
+                    link.innerText = page.name;
+                    listItem.appendChild(link);
+                    pageList.appendChild(listItem);
+                });
+            });
+    </script>
 </body>
 </html>
